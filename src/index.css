@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-earth-50 text-slate-900 font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+  
+  .farmer-button {
+    @apply bg-forest-500 hover:bg-forest-600 text-white font-medium px-6 py-3 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg;
+  }
+  
+  .weather-gradient {
+    background: linear-gradient(135deg, #2e8b57 0%, #1d5535 100%);
+  }
+  
+  .crop-gradient {
+    background: linear-gradient(135deg, #e4a11b 0%, #ac6b14 100%);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-earth-100/50;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-forest-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-forest-500;
+}
