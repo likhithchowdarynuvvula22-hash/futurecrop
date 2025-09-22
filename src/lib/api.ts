@@ -5,23 +5,12 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000'
 // Weather API calls
 export async function fetchWeather(lat: number, lon: number): Promise<WeatherData> {
   try {
-    // Correctly point to the Open-Meteo API with all required parameters
-    const openMeteoUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&hourly=temperature_2m,relative_humidity_2m&timezone=auto`
-
-    const response = await fetch(openMeteoUrl)
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ reason: 'Could not parse error response.' }))
-      console.error('Open-Meteo API request failed, falling back to mock data. Reason:', errorData.reason)
-      // Throw an error to be caught by the outer catch block, which will then return mock data.
-      throw new Error(errorData.reason || 'Failed to fetch weather from Open-Meteo')
-    }
-
+    const response = await fetch(`${API_BASE}/api/weather?lat=${lat}&lon=${lon}`)
+    if (!response.ok) throw new Error('Weather fetch failed')
     return await response.json()
   } catch (error) {
-    console.error('An error occurred while fetching weather data:', error)
-    console.log('Returning mock weather data as a fallback.')
-    // Return mock data for development, as intended by the project design
+    console.error('Weather API error:', error)
+    // Return mock data for development
     return mockWeatherData()
   }
 }
